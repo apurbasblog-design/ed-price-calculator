@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rendering Pricing Calculator</title>
+    <style>
+    .rendering-type { display: none; }
+    .rendering-type.active { display: block; }
+    body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 0; }
+    .container {
+        max-width: 900px;
+        margin: 40px auto;
+        background: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        display: flex;
+        gap: 32px;
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+    .container > div {
+        flex: 1 1 320px;
+        min-width: 280px;
+        box-sizing: border-box;
+    }
+    h2 { text-align: center; }
+    label { display: block; margin-top: 15px; }
+    input, select { width: 100%; padding: 8px; margin-top: 5px; border-radius: 4px; border: 1px solid #ccc; box-sizing: border-box; }
+    button { margin-top: 20px; width: 100%; padding: 10px; background: #0078d7; color: #fff; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; }
+    button:hover { background: #005fa3; }
+    .result { margin-top: 20px; font-size: 18px; text-align: center; }
+    .rendering-type img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        border-radius: 6px;
+        max-width: 100%;
+        display: block;
+    }
+    @media (max-width: 900px) {
+        .container {
+            flex-direction: column;
+            gap: 24px;
+            max-width: 98vw;
+            padding: 16px;
+        }
+        .container > div {
+            min-width: 0;
+        }
+        .rendering-type img {
+            height: 180px;
+        }
+    }
+    @media (max-width: 600px) {
+        .container {
+            padding: 6vw 2vw;
+        }
+        h2 { font-size: 1.2em; }
+        .rendering-type img {
+            height: 120px;
+        }
+        label, input, select, button {
+            font-size: 1em;
+        }
+        .result { font-size: 1em; }
+    }
+    </style>
+</head>
+<body>
+    <div class="container" style="display: flex; gap: 32px; align-items: flex-start; max-width: 900px;">
+        <div style="flex: 1; min-width: 320px;">
+            <div id="rendering-types">
+                <div class="rendering-type" data-type="interior">
+                    <img src="images/LIVS10_view 01.jpg" alt="Interior Sample" style="width:100%;height:220px;object-fit:cover;border-radius:6px;">
+                    <div style="text-align:center;margin:6px 0 10px 0;">
+                        <a href="#" class="see-more-link" data-type="interior">See more samples</a>
+                    </div>
+                    <ul class="turnaround-list" style="list-style:disc inside;text-align:left;max-width:90%;margin:16px auto 0 auto;padding:0;font-size:1.05em;color:#444;min-height:48px;"></ul>
+                    <div style="display:flex;justify-content:center;align-items:center;height:48px;margin-top:10px;width:100%;">
+                        <p style="margin:0;font-size:1em;color:#333;">Not sure about your project complexity? <a href="https://7cgi.com/contact-us/" target="_blank" style="color:#0078d7;text-decoration:underline;">Contact us</a> for a free assessment.</p>
+                    </div>
+                </div>
+                <div class="rendering-type" data-type="exterior">
+                    <img src="images/LIVS16 _view 01_V1.jpg" alt="Exterior Sample" style="width:100%;height:220px;object-fit:cover;border-radius:6px;">
+                    <div style="text-align:center;margin:6px 0 10px 0;">
+                        <a href="#" class="see-more-link" data-type="exterior">See more samples</a>
+                    </div>
+                    <ul class="turnaround-list" style="list-style:disc inside;text-align:left;max-width:90%;margin:16px auto 0 auto;padding:0;font-size:1.05em;color:#444;min-height:48px;"></ul>
+                    <div style="display:flex;justify-content:center;align-items:center;height:48px;margin-top:10px;width:100%;">
+                        <p style="margin:0;font-size:1em;color:#333;">Not sure about your project complexity? <a href="https://7cgi.com/contact-us/" target="_blank" style="color:#0078d7;text-decoration:underline;">Contact us</a> for a free assessment.</p>
+                    </div>
+                </div>
+                <div class="rendering-type" data-type="product">
+                    <img src="images/LIVS16 _view 01_V1-PA.jpg" alt="Product Sample" style="width:100%;height:220px;object-fit:cover;border-radius:6px;">
+                    <div style="text-align:center;margin:6px 0 10px 0;">
+                        <a href="#" class="see-more-link" data-type="product">See more samples</a>
+                    </div>
+                    <ul class="turnaround-list" style="list-style:disc inside;text-align:left;max-width:90%;margin:16px auto 0 auto;padding:0;font-size:1.05em;color:#444;min-height:48px;"></ul>
+                    <div style="display:flex;justify-content:center;align-items:center;height:48px;margin-top:10px;width:100%;">
+                        <p style="margin:0;font-size:1em;color:#333;">Not sure about your project complexity? <a href="https://7cgi.com/contact-us/" target="_blank" style="color:#0078d7;text-decoration:underline;">Contact us</a> for a free assessment.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="flex: 1; min-width: 320px;">
+            <h2>3D Rendering Pricing Calculator</h2>
+            <label for="type">Rendering Category:</label>
+            <select id="type">
+                <option value="interior">Interior</option>
+                <option value="exterior">Exterior</option>
+                <option value="product">Product</option>
+            </select>
+            <label for="quantity">Number of Renderings:</label>
+            <div style="display:flex;align-items:center;gap:10px;">
+                <input type="range" id="quantity" min="1" max="10" value="1" style="flex:1;">
+                <input type="number" id="quantity-number" min="1" max="10" value="1" style="width:60px;">
+            </div>
+            <div id="discount-info" style="color:#2e8b57;font-weight:bold;margin-top:5px;"></div>
+            <label for="complexity">Complexity:</label>
+            <select id="complexity">
+                <option value="basic">Basic</option>
+                <option value="standard">Standard</option>
+                <option value="premium">Premium</option>
+            </select>
+            <button onclick="calculatePrice()">Calculate</button>
+            <div class="result" id="result"></div>
+        </div>
+    </div>
+    <script>
+        // Show only the image for the selected category
+        function showSelectedRenderingType() {
+            const selectedType = document.getElementById('type').value;
+            let found = false;
+            document.querySelectorAll('.rendering-type').forEach(div => {
+                if (div.getAttribute('data-type') === selectedType) {
+                    div.classList.add('active');
+                    found = true;
+                } else {
+                    div.classList.remove('active');
+                }
+            });
+            // If nothing is selected (on load), show the first image by default
+            if (!found) {
+                const first = document.querySelector('.rendering-type');
+                if (first) first.classList.add('active');
+            }
+        }
+
+        // Example base prices (can be adjusted)
+        const basePrices = {
+            interior: { basic: 400, standard: 600, premium: 800 },
+            exterior: { basic: 500, standard: 700, premium: 1000 },
+            product:  { basic: 80,  standard: 160, premium: 250 },
+            animation: { basic: 500, standard: 1000, premium: 2000 },
+            virtualstaging: { basic: 60, standard: 120, premium: 200 }
+        };
+
+        // Turnaround time info
+        const turnaroundTimes = {
+            basic: 'Less than 1 week',
+            standard: 'Around 1 week',
+            premium: '1-2 weeks'
+        };
+
+        function updateTurnaround() {
+            const complexity = document.getElementById('complexity').value;
+            const type = document.getElementById('type').value;
+            document.querySelectorAll('.turnaround-list').forEach(list => list.innerHTML = '');
+            const active = document.querySelector('.rendering-type.active .turnaround-list');
+            if (active) {
+                active.innerHTML = `Turnaround time: <b>${turnaroundTimes[complexity]}</b>`;
+            }
+        }
+
+        // ...existing code...
+        function calculatePrice() {
+            showSelectedRenderingType();
+            const type = document.getElementById('type').value;
+            const quantity = parseInt(document.getElementById('quantity').value, 10);
+            const complexity = document.getElementById('complexity').value;
+            document.getElementById('quantity-number').value = quantity;
+            let pricePerRendering = basePrices[type][complexity];
+            let discount = 0;
+            let discountMsg = '';
+            // Discount logic for interior
+            if (type === 'interior') {
+                if (complexity === 'basic') {
+                    if (quantity > 6) {
+                        pricePerRendering = 250;
+                        discount = 150;
+                        discountMsg = `You save $150 per image!`;
+                    } else if (quantity >= 3) {
+                        pricePerRendering = 300;
+                        discount = 100;
+                        discountMsg = `You save $100 discount per image.`;
+                    } else {
+                        pricePerRendering = 400;
+                        discount = 0;
+                        discountMsg = '';
+                    }
+                } else if (complexity === 'standard') {
+                    if (quantity > 6) {
+                        pricePerRendering = 400;
+                        discount = 200;
+                        discountMsg = `You save $200 per image`;
+                    } else if (quantity >= 3) {
+                        pricePerRendering = 500;
+                        discount = 100;
+                        discountMsg = `You save $100 per image`;
+                    } else {
+                        pricePerRendering = 600;
+                        discount = 0;
+                        discountMsg = '';
+                    }
+                } else if (complexity === 'premium') {
+                    if (quantity > 6) {
+                        pricePerRendering = 550;
+                        discount = 250;
+                        discountMsg = `You save $250 per image`;
+                    } else if (quantity >= 3) {
+                        pricePerRendering = 650;
+                        discount = 150;
+                        discountMsg = `You save $150 per image`;
+                    } else {
+                        pricePerRendering = 800;
+                        discount = 0;
+                        discountMsg = '';
+                    }
+                }
+            }
+            // Discount logic for exterior
+            else if (type === 'exterior') {
+                if (complexity === 'basic') {
+                    if (quantity > 6) {
+                        pricePerRendering = 400;
+                        discount = 100;
+                        discountMsg = `You save $100 per image`;
+                    } else if (quantity >= 3) {
+                        pricePerRendering = 450;
+                        discount = 50;
+                        discountMsg = `You save $50 per image`;
+                    } else {
+                        pricePerRendering = 500;
+                        discount = 0;
+                        discountMsg = '';
+                    }
+                } else if (complexity === 'standard') {
+                    if (quantity > 6) {
+                        pricePerRendering = 550;
+                        discount = 150;
+                        discountMsg = `You save $150 per image`;
+                    } else if (quantity >= 3) {
+                        pricePerRendering = 650;
+                        discount = 50;
+                        discountMsg = `You save $50 per image`;
+                    } else {
+                        pricePerRendering = 700;
+                        discount = 0;
+                        discountMsg = '';
+                    }
+                } else if (complexity === 'premium') {
+                    if (quantity > 6) {
+                        pricePerRendering = 750;
+                        discount = 250;
+                        discountMsg = `You save $250 per image`;
+                    } else if (quantity >= 3) {
+                        pricePerRendering = 850;
+                        discount = 150;
+                        discountMsg = `You save $150 per image`;
+                    } else {
+                        pricePerRendering = 1000;
+                        discount = 0;
+                        discountMsg = '';
+                    }
+                }
+            }
+            // Discount logic for product
+            else if (type === 'product') {
+                if (complexity === 'basic') {
+                    if (quantity > 6) {
+                        pricePerRendering = 100;
+                        discount = 50;
+                        discountMsg = `You save $50 per image!`;
+                    } else if (quantity >= 3) {
+                        pricePerRendering = 120;
+                        discount = 30;
+                        discountMsg = `You save $30 per image!`;
+                    } else {
+                        pricePerRendering = 150;
+                        discount = 0;
+                        discountMsg = '';
+                    }
+                } else if (complexity === 'standard') {
+                    if (quantity > 6) {
+                        pricePerRendering = 150;
+                        discount = 100;
+                        discountMsg = `You save $100 per image!`;
+                    } else if (quantity >= 3) {
+                        pricePerRendering = 200;
+                        discount = 50;
+                        discountMsg = `You save $50 per image!`;
+                    } else {
+                        pricePerRendering = 250;
+                        discount = 0;
+                        discountMsg = '';
+                    }
+                } else if (complexity === 'premium') {
+                    if (quantity > 6) {
+                        pricePerRendering = 250;
+                        discount = 150;
+                        discountMsg = `You save $150 per image!`;
+                    } else if (quantity >= 3) {
+                        pricePerRendering = 350;
+                        discount = 50;
+                        discountMsg = `You save $50 per image!`;
+                    } else {
+                        pricePerRendering = 400;
+                        discount = 0;
+                        discountMsg = '';
+                    }
+                }
+            }
+            const total = pricePerRendering * quantity;
+            document.getElementById('result').innerText = `Total Price: $${total}`;
+            document.getElementById('discount-info').innerText = discountMsg;
+            updateTurnaround();
+        }
+
+        // Sync range and number input
+        document.addEventListener('DOMContentLoaded', function() {
+            updateTurnaround();
+            document.getElementById('complexity').addEventListener('change', function() {
+                updateTurnaround();
+                calculatePrice();
+            });
+            document.getElementById('type').addEventListener('change', updateTurnaround);
+            const range = document.getElementById('quantity');
+            const number = document.getElementById('quantity-number');
+            range.addEventListener('input', function() {
+                number.value = range.value;
+                calculatePrice();
+            });
+            number.addEventListener('input', function() {
+                let val = parseInt(number.value);
+                if (isNaN(val) || val < 1) val = 1;
+                if (val > 10) val = 10;
+                number.value = val;
+                range.value = val;
+                calculatePrice();
+            });
+        });
+
+        // See more samples popup and show image for selected category
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show the image for the default selected type or first image on load
+            showSelectedRenderingType();
+
+            // Update image and sample link when category changes
+            function updateSampleLink() {
+                const type = document.getElementById('type').value;
+                const link = document.querySelector('.rendering-type.active .see-more-link');
+                if (!link) return;
+                let url = '#';
+                if (type === 'interior') url = 'https://7cgi.com/interior-rendering-portfolio/';
+                if (type === 'exterior') url = 'https://7cgi.com/exterior-renderings/';
+                if (type === 'product') url = 'https://7cgi.com/product-rendering-portfolio/';
+                if (type === 'animation') url = 'https://7cgi.com/3d-animation-portfolio/';
+                if (type === 'virtualstaging') url = 'https://7cgi.com/virtual-staging-portfolio/';
+                link.setAttribute('href', url);
+                link.setAttribute('target', '_blank');
+            }
+
+            document.getElementById('type').addEventListener('change', function() {
+                showSelectedRenderingType();
+                updateSampleLink();
+            });
+
+            // Initial link update
+            updateSampleLink();
+
+            // See more samples links: open in new tab (in case user clicks before change event)
+            const sampleLinks = document.querySelectorAll('.see-more-link');
+            sampleLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Let anchor open in new tab
+                });
+            });
+        });
+    </script>
+</body>
+</html>
