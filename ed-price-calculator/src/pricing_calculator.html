@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rendering Pricing Calculator</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/modal.css">
+</head>
+<body>
+    <div class="container">
+        <div id="rendering-types">
+            <div class="rendering-type" data-type="interior">
+                <img src="assets/images/LIVS10_view 01.jpg" alt="Interior Sample">
+                <div class="see-more">
+                    <button class="see-more-link" data-type="interior">See more samples</button>
+                </div>
+            </div>
+            <div class="rendering-type" data-type="exterior">
+                <img src="assets/images/LIVS16_view 01_V1.jpg" alt="Exterior Sample">
+                <div class="see-more">
+                    <button class="see-more-link" data-type="exterior">See more samples</button>
+                </div>
+            </div>
+            <div class="rendering-type" data-type="product">
+                <img src="assets/images/LIVS16_view 01_V1-PA.jpg" alt="Product Sample">
+                <div class="see-more">
+                    <button class="see-more-link" data-type="product">See more samples</button>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h2>3D Rendering Pricing Calculator</h2>
+            <label for="type">Rendering Category:</label>
+            <select id="type">
+                <option value="interior">Interior</option>
+                <option value="exterior">Exterior</option>
+                <option value="product">Product</option>
+            </select>
+            <label for="quantity">Number of Renderings:</label>
+            <input type="range" id="quantity" min="1" max="10" value="1">
+            <input type="number" id="quantity-number" min="1" max="10" value="1">
+            <label for="complexity">Complexity:</label>
+            <select id="complexity">
+                <option value="basic">Basic</option>
+                <option value="standard">Standard</option>
+                <option value="premium">Premium</option>
+            </select>
+            <button onclick="calculatePrice()">Calculate</button>
+            <div class="result" id="result"></div>
+        </div>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="carousel">
+                <img id="carousel-image" src="" alt="Sample Image">
+                <button class="prev" onclick="changeImage(-1)">&#10094;</button>
+                <button class="next" onclick="changeImage(1)">&#10095;</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/calculator.js"></script>
+    <script src="js/modal.js"></script>
+    <script src="js/carousel.js"></script>
+    <script>
+        document.querySelectorAll('.see-more-link').forEach(link => {
+            link.addEventListener('click', function() {
+                const type = this.getAttribute('data-type');
+                openModal(type);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "name": "ed-price-calculator",
+  "version": "1.0.0",
+  "description": "A pricing calculator for 3D rendering services with a modal carousel for sample images.",
+  "main": "src/js/calculator.js",
+  "scripts": {
+    "start": "live-server public",
+    "build": "echo 'Build step not defined'",
+    "test": "echo 'No tests defined'"
+  },
+  "keywords": [
+    "pricing",
+    "calculator",
+    "3D rendering",
+    "modal",
+    "carousel"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "^3.6.0"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.1"
+  }
+}
